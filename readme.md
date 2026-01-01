@@ -19,7 +19,7 @@
 1. 确保已安装 Node.js 和 npm。
 2. 克隆此项目并安装依赖：
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Johnsheng1/cf-ai-TGantiAD.git
    cd cf-ai-TGantiAD
    npm install
    ```
