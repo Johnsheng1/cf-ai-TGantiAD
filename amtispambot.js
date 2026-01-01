@@ -177,7 +177,7 @@ app.get('/verify/:token', (req, res) => {
         <style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background-color:#f0f2f5;flex-direction:column}.container{background:white;padding:40px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center}h1{margin-bottom:20px;font-size:2em;}form{display:flex;flex-direction:column;align-items:center;}input{margin:15px 0;padding:10px;font-size:1.5em;width:100px;text-align:center;}button{padding:10px 20px;font-size:1em;cursor:pointer;}#message{margin-top:20px;font-weight:bold}</style></head><body><div class="container">
             <h1>请选择验证方式</h1>
             <div id="math-section">
-                <h2>数学题验证（需先完成 人机验证）</h2>
+                <h2>数学题验证（需先完成人机验证）</h2>
                 <h3>${question}</h3>
                 <form id="verify-form">
                     <input type="number" id="answer" name="answer" required autofocus disabled>
