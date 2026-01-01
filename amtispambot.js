@@ -177,14 +177,14 @@ app.get('/verify/:token', (req, res) => {
         <style>body{font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;background-color:#f0f2f5;flex-direction:column}.container{background:white;padding:40px;border-radius:8px;box-shadow:0 4px 12px rgba(0,0,0,0.1);text-align:center}h1{margin-bottom:20px;font-size:2em;}form{display:flex;flex-direction:column;align-items:center;}input{margin:15px 0;padding:10px;font-size:1.5em;width:100px;text-align:center;}button{padding:10px 20px;font-size:1em;cursor:pointer;}#message{margin-top:20px;font-weight:bold}</style></head><body><div class="container">
             <h1>请选择验证方式</h1>
             <div id="math-section">
-                <h2>数学题验证（需先完成 CAP）</h2>
+                <h2>数学题验证（需先完成 人机验证）</h2>
                 <h3>${question}</h3>
                 <form id="verify-form">
                     <input type="number" id="answer" name="answer" required autofocus disabled>
                     <button type="submit" id="submit-btn" disabled>提交答案</button>
                 </form>
             </div>
-            ${ENABLE_CAP && capEnabled ? `<hr style="width:100%;margin:20px 0"><div id="cap-section"><h2>CAP 人机验证</h2><cap-widget id="cap" data-cap-api-endpoint="${CAP_API_ENDPOINT}"></cap-widget><p id="cap-status">请先完成 CAP 验证以启用答案输入。</p></div><script src="https://cdn.jsdelivr.net/npm/@cap.js/widget@0.1.25"></script>` : `<p>CAP 验证已被禁用；直接提交数学题即可。</p>`}
+            ${ENABLE_CAP && capEnabled ? `<hr style="width:100%;margin:20px 0"><div id="cap-section"><h2>CAP 人机验证</h2><cap-widget id="cap" data-cap-api-endpoint="${CAP_API_ENDPOINT}"></cap-widget><p id="cap-status">请先完成 CAP 验证以启用答案输入。</p></div><script src="https://cdn.jsdelivr.net/npm/@cap.js/widget@0.1.32"></script>` : `<p>CAP 验证已被禁用；直接提交数学题即可。</p>`}
             <p id="message"></p>
         </div>
             <script>
@@ -201,7 +201,7 @@ app.get('/verify/:token', (req, res) => {
                         capEl.addEventListener('solve', function(e) {
                             capToken = e.detail && e.detail.token;
                             if (capToken) {
-                                statusEl.textContent = '✅ CAP 验证成功，您现在可以提交数学题答案。';
+                                statusEl.textContent = '✅ 人机验证成功，您现在可以提交数学题答案。';
                                 statusEl.style.color = 'green';
                                 answerInput.removeAttribute('disabled');
                                 submitBtn.removeAttribute('disabled');
@@ -209,7 +209,7 @@ app.get('/verify/:token', (req, res) => {
                         });
                         capEl.addEventListener('expired', function() {
                             capToken = null;
-                            statusEl.textContent = 'CAP 已过期，请重新验证';
+                            statusEl.textContent = 'CAP Token已过期，请重新验证';
                             statusEl.style.color = 'red';
                             answerInput.setAttribute('disabled', 'true');
                             submitBtn.setAttribute('disabled', 'true');
@@ -219,7 +219,7 @@ app.get('/verify/:token', (req, res) => {
                     document.getElementById('verify-form').addEventListener('submit', function(event) {
                         event.preventDefault();
                         if (!capToken) {
-                            document.getElementById('message').textContent = '请先完成 CAP 验证';
+                            document.getElementById('message').textContent = '请先完成 人机验证';
                             return;
                         }
                         const answer = document.getElementById('answer').value;
